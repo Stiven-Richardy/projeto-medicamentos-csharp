@@ -29,7 +29,6 @@ namespace projeto_medicamentos
     {
         public static Medicamentos medicamentos = new Medicamentos();
         public static int idMedicamento = 0;
-        public static int idLote = 0;
 
         static void Main(string[] args)
         {
@@ -58,10 +57,10 @@ namespace projeto_medicamentos
                         cadastrarMedicamento();
                         break;
                     case 2:
-                        //consultorMedicamentoSintetico();
+                        consultarMedicamentoSintetico();
                         break;
                     case 3:
-                        //consultorMedicamentoAnalitico();
+                        //consultarMedicamentoAnalitico();
                         break;
                     case 4:
                         //comprarMedicamento();
@@ -70,7 +69,7 @@ namespace projeto_medicamentos
                         //venderMedicamento();
                         break;
                     case 6:
-                        //listarMedicamento();
+                        //listarMedicamentos();
                         break;
                     default:
                         Utils.MensagemErro("Digite um número de 0-6!");
@@ -81,39 +80,57 @@ namespace projeto_medicamentos
 
         static void cadastrarMedicamento()
         {
-            Utils.Titulo("CADASTRAR MEDICAMENTO - LOTE 1/3");
-            Console.Write(" Digite a quantidade de medicamentos: ");
-            int qtdeLote = Utils.lerInt(Console.ReadLine(), 0, " Entrada inválida!\n Tente novamente: ");
-            Console.WriteLine("\n DATA DE VENCIMENTO");
-            Console.Write(" Informe o ano: ");
-            int ano = Utils.lerMinMax(Console.ReadLine(), DateTime.Now.Year, 2100, " Ano inválido!\n Tente novamente: ");
-            Console.Write(" Informe o mês: ");
-            int mes = Utils.lerMinMax(Console.ReadLine(), DateTime.Now.Month, 12, " Mês inválido!\n Tente novamente: ");
-            int diasNoMes = DateTime.DaysInMonth(ano, mes);
-            Console.Write(" Informe o dia: ");
-            int dia = Utils.lerMinMax(Console.ReadLine(), DateTime.Now.Day + 1, diasNoMes, " Dia inválido!\n Tente novamente: ");
-            DateTime venc = new DateTime(ano, mes, dia);
-            Lote novoLote = new Lote(idLote, qtdeLote, venc);
-
-            Utils.Titulo("CADASTRAR MEDICAMENTO - MEDICAMENTO 2/3");
+            Utils.Titulo("CADASTRAR MEDICAMENTO - MEDICAMENTO 1/3");
             Console.Write(" Digite o Nome do Medicamento: ");
             string nome = Console.ReadLine();
             Console.Write(" Digite o Nome do Laboratório: ");
             string lab = Console.ReadLine();
             Medicamento novoMedicamento = new Medicamento(idMedicamento, nome, lab);
 
+            Utils.Titulo("CADASTRAR MEDICAMENTO - LOTE 2/3");
+            Console.Write(" Digite a quantidade de medicamentos: ");
+            int qtdeLote = Utils.lerInt(Console.ReadLine(), 1, " Entrada inválida!\n Tente novamente: ");
+            Console.WriteLine("\n DATA DE VENCIMENTO");
+            Console.Write(" Informe o ano: ");
+            int ano = Utils.lerMinMax(Console.ReadLine(), DateTime.Now.Year + 1, 2100, " Ano inválido!\n Tente novamente: ");
+            Console.Write(" Informe o mês: ");
+            int mes = Utils.lerMinMax(Console.ReadLine(), 1, 12, " Mês inválido!\n Tente novamente: ");
+            int diasNoMes = DateTime.DaysInMonth(ano, mes);
+            Console.Write(" Informe o dia: ");
+            int dia = Utils.lerMinMax(Console.ReadLine(), 1, diasNoMes, " Dia inválido!\n Tente novamente: ");
+            DateTime venc = new DateTime(ano, mes, dia);
+            Lote novoLote = new Lote(novoMedicamento.Lotes.Count, qtdeLote, venc);
+
+            Utils.Titulo("CADASTRAR MEDICAMENTO 3/3");
             if (medicamentos.Pesquisar(novoMedicamento) == null) {
                 medicamentos.Adicionar(novoMedicamento);
                 novoMedicamento.Lotes.Enqueue(novoLote);
                 Console.WriteLine($" Id: {novoMedicamento.Id}\n" +
                     $" Nome: {novoMedicamento.Nome}");
                 Utils.MensagemSucesso("Medicamento cadastrado!");
-                idLote++;
                 idMedicamento++;
             }
             else
             {
                 Utils.MensagemErro("O medicamento já existe.");
+            }
+        }
+
+        static void consultarMedicamentoSintetico()
+        {
+            Utils.Titulo("CONSULTAR MEDICAMENTO (SINTÉTICO)");
+            Console.Write(" Digite o Nome do Medicamento: ");
+            string nome = Console.ReadLine();
+            Medicamento medicamentoPesquisado = new Medicamento(nome);
+            medicamentoPesquisado = medicamentos.Pesquisar(medicamentoPesquisado);
+            if (medicamentoPesquisado != null)
+            {
+                Console.WriteLine(medicamentoPesquisado.ToString());
+                Utils.MensagemSucesso("Medicamento encontrado!");
+            }
+            else
+            {
+                Utils.MensagemErro("O medicamento não existe.");
             }
         }
     }

@@ -20,6 +20,11 @@ namespace projeto_medicamentos
 
         public Medicamento() { }
 
+        public Medicamento(string nome) 
+        { 
+            Nome = nome;
+        }
+
         public Medicamento(int id, string nome, string laboratorio)
         {
             Id = id;
@@ -30,7 +35,12 @@ namespace projeto_medicamentos
 
         public int QtdeDisponivel()
         {
-            return 0;
+            int total = 0;
+            foreach(Lote l in Lotes)
+            {
+                total += l.Qtde;
+            }
+            return total;
         }
 
         public void Comprar(Lote lote)
@@ -45,7 +55,7 @@ namespace projeto_medicamentos
 
         public override string ToString()
         {
-            return "";
+            return $" Id: {Id}\n Nome: {Nome}\n Laboratório: {Laboratorio}\n Quantidade: {QtdeDisponivel()}";
         }
 
         public override bool Equals(object obj)
