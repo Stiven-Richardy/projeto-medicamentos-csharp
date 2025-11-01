@@ -44,7 +44,7 @@ namespace projeto_medicamentos
         {
             Console.Clear();
             Console.WriteLine(new string('=', 70));
-            Console.WriteLine($" GERENCIAMENTO DE PROJETOS - {titulo}");
+            Console.WriteLine($" FARMÁCIA - {titulo}");
             Console.WriteLine(new string('=', 70));
         }
 

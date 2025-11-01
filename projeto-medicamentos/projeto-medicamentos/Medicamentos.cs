@@ -19,7 +19,7 @@ namespace projeto_medicamentos
 
         public void Adicionar(Medicamento medicamento)
         {
-
+            ListaMedicamentos.Add(medicamento);
         }
 
         public bool Deletar(Medicamento medicamento)
@@ -29,7 +29,8 @@ namespace projeto_medicamentos
 
         public Medicamento Pesquisar(Medicamento medicamento)
         {
-            return medicamento;
+            Medicamento medicamentoPesquisado = ListaMedicamentos.Find(p => p.Nome.Equals(medicamento.Nome, StringComparison.OrdinalIgnoreCase));
+            return medicamentoPesquisado;
         }
     }
 }
