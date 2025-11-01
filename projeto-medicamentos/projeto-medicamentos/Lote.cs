@@ -10,11 +10,11 @@ namespace projeto_medicamentos
     {
         private int id;
         private int qtde;
-        private DateTime? venc;
+        private DateTime venc;
 
         public int Id { get => id; set => id = value; }
         public int Qtde { get => qtde; set => qtde = value; }
-        public DateTime? Venc { get => venc; set => venc = value; }
+        public DateTime Venc { get => venc; set => venc = value; }
 
         public Lote() { }
 
@@ -25,9 +25,9 @@ namespace projeto_medicamentos
             Venc = venc;
         }
 
-        public string toString()
+        public override string ToString()
         {
-            return "";
+            return $" Id: {Id}\n Quantidade no Lote: {Qtde}\n Data de Vencimento: {Venc.Date}";
         }
     }
 }

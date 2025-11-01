@@ -60,7 +60,7 @@ namespace projeto_medicamentos
                         consultarMedicamentoSintetico();
                         break;
                     case 3:
-                        //consultarMedicamentoAnalitico();
+                        consultarMedicamentoAnalitico();
                         break;
                     case 4:
                         //comprarMedicamento();
@@ -126,6 +126,29 @@ namespace projeto_medicamentos
             if (medicamentoPesquisado != null)
             {
                 Console.WriteLine(medicamentoPesquisado.ToString());
+                Utils.MensagemSucesso("Medicamento encontrado!");
+            }
+            else
+            {
+                Utils.MensagemErro("O medicamento não existe.");
+            }
+        }
+
+        static void consultarMedicamentoAnalitico()
+        {
+            Utils.Titulo("CONSULTAR MEDICAMENTO (ANALÍTICO)");
+            Console.Write(" Digite o Nome do Medicamento: ");
+            string nome = Console.ReadLine();
+            Medicamento medicamentoPesquisado = new Medicamento(nome);
+            medicamentoPesquisado = medicamentos.Pesquisar(medicamentoPesquisado);
+            if (medicamentoPesquisado != null)
+            {
+                Console.WriteLine(medicamentoPesquisado.ToString());
+                Console.WriteLine("\n Lotes disponíveis:");
+                foreach (Lote l in medicamentoPesquisado.Lotes)
+                {
+                    Console.WriteLine(l.ToString());
+                }
                 Utils.MensagemSucesso("Medicamento encontrado!");
             }
             else
