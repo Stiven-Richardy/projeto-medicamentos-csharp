@@ -69,7 +69,7 @@ namespace projeto_medicamentos
                         //venderMedicamento();
                         break;
                     case 6:
-                        //listarMedicamentos();
+                        listarMedicamentos();
                         break;
                     default:
                         Utils.MensagemErro("Digite um número de 0-6!");
@@ -155,6 +155,20 @@ namespace projeto_medicamentos
             {
                 Utils.MensagemErro("O medicamento não existe.");
             }
+        }
+        static void listarMedicamentos()
+        {
+            Utils.Titulo("LISTAR MEDICAMENTOS");
+            if (medicamentos.ListaMedicamentos.Count > 0)
+            {
+                foreach (Medicamento medicamento in medicamentos.ListaMedicamentos)
+                {
+                    Console.WriteLine(medicamento.ToString() + "\n");
+                }
+                Utils.MensagemSucesso("Quantidade de medicamentos: " + medicamentos.ListaMedicamentos.Count);
+            }
+            else
+                Utils.MensagemErro("Nenhum medicamento cadastrado");
         }
     }
 }
