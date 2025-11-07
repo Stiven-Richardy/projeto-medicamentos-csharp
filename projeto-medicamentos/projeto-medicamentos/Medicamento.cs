@@ -45,7 +45,7 @@ namespace projeto_medicamentos
 
         public void Comprar(Lote lote)
         {
-            
+            Lotes.Enqueue(lote);
         }
 
         public bool Vender(int qtde)
