@@ -66,7 +66,7 @@ namespace projeto_medicamentos
                         //comprarMedicamento();
                         break;
                     case 5:
-                        //venderMedicamento();
+                        venderMedicamento();
                         break;
                     case 6:
                         //listarMedicamentos();
@@ -154,6 +154,28 @@ namespace projeto_medicamentos
             else
             {
                 Utils.MensagemErro("O medicamento não existe.");
+            }
+        }
+        static void venderMedicamento()
+        {
+            Utils.Titulo("VENDER MEDICAMENTO");
+            Console.Write(" Digite o Nome do Medicamento: ");
+            string nome = Console.ReadLine();
+            Medicamento medicamentoPesquisado = medicamentos.Pesquisar(new Medicamento(nome));
+            if (medicamentoPesquisado != null && medicamentoPesquisado.QtdeDisponivel() > 0)
+            {
+                Console.Write(" Informe a quantidade: ");
+                int qtd = Utils.lerInt(Console.ReadLine(), 1, "Quantidade inválida!");
+                if (medicamentoPesquisado.Vender(qtd))
+                {
+                    Utils.MensagemSucesso($"Venda de {medicamentoPesquisado.Nome} efetuada!");
+                }
+                else
+                    Utils.MensagemErro("Quantidade insuficiente!");
+            }
+            else
+            {
+                Utils.MensagemErro(medicamentoPesquisado == null ? "Medicamento não encontrado!" : "Estoque vazio");
             }
         }
     }
