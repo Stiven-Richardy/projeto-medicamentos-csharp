@@ -4,7 +4,7 @@ Este projeto foi desenvolvido como atividade acadêmica para aplicar conceitos d
 
 ## 🎯 Objetivos
 
-- Implementar um sistema de **CRUD (Criar, Ler, Remover)** para Medicamentos.
+- Implementar um sistema de **CRUD (Criar, Ler, Atualizar e Remover)** para Medicamentos.
 - Gerenciar os lotes de cada medicamento utilizando uma **Fila (`Queue<Lote>`)**, garantindo que o primeiro lote a entrar seja o primeiro a sair.
 - Implementar a lógica de **compra** (adicionar um novo lote ao final da fila).
 - Implementar a lógica de **venda**, que retira a quantidade dos lotes mais antigos primeiro, removendo-os da fila quando zerados.
