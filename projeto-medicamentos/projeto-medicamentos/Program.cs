@@ -63,7 +63,7 @@ namespace projeto_medicamentos
                         consultarMedicamentoAnalitico();
                         break;
                     case 4:
-                        //comprarMedicamento();
+                        comprarMedicamento();
                         break;
                     case 5:
                         venderMedicamento();
@@ -177,6 +177,33 @@ namespace projeto_medicamentos
             {
                 Utils.MensagemErro(medicamentoPesquisado == null ? "Medicamento não encontrado!" : "Estoque vazio");
             }
+        }
+        static void comprarMedicamento()
+        {
+            Utils.Titulo("COMPRAR MEDICAMENTO");
+            Console.Write(" Digite o Nome do Medicamento: ");
+            string nome = Console.ReadLine();
+            Medicamento medicamentoPesquisado = medicamentos.Pesquisar(new Medicamento(nome));
+            if (medicamentoPesquisado != null)
+            {
+                int id = medicamentoPesquisado.Lotes.Count;
+                Console.Write(" Digite a quantidade de medicamentos: ");
+                int qtde = Utils.lerInt(Console.ReadLine(), 1, "Quantidade inválida!");
+                Console.WriteLine("\n DATA DE VENCIMENTO");
+                Console.Write(" Informe o ano: ");
+                int ano = Utils.lerMinMax(Console.ReadLine(), DateTime.Now.Year + 1, 2100, " Ano inválido!\n Tente novamente: ");
+                Console.Write(" Informe o mês: ");
+                int mes = Utils.lerMinMax(Console.ReadLine(), 1, 12, " Mês inválido!\n Tente novamente: ");
+                int diasNoMes = DateTime.DaysInMonth(ano, mes);
+                Console.Write(" Informe o dia: ");
+                int dia = Utils.lerMinMax(Console.ReadLine(), 1, diasNoMes, " Dia inválido!\n Tente novamente: ");
+                DateTime venc = new DateTime(ano, mes, dia);
+                Lote lote = new Lote(id, qtde, venc);
+                medicamentoPesquisado.Comprar(lote);
+                Utils.MensagemSucesso($"Compra de lote de {medicamentoPesquisado.Nome} efetuada!");
+            }
+            else
+                Utils.MensagemErro("O medicamento não existe");
         }
     }
 }
