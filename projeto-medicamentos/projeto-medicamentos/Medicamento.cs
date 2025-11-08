@@ -50,7 +50,32 @@ namespace projeto_medicamentos
 
         public bool Vender(int qtde)
         {
-            return false;
+            bool vendeu = true;
+            if (qtde <= QtdeDisponivel())
+            {
+                while (Lotes.Count > 0)
+                {
+                    if (Lotes.Peek().Qtde > qtde)
+                    {
+                        Lotes.Peek().Qtde -= qtde;
+                        break;
+                    }
+                    else
+                    {
+                        qtde -= Lotes.Peek().Qtde;
+                        Lotes.Dequeue();
+                        if (qtde == 0)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                vendeu = false;
+            }
+            return vendeu;
         }
 
         public override string ToString()
